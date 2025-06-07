@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Release Notes: PBS Live Notification System V1.1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 
+        Chosen Palette: Calm Neutral Blue
+        Application Structure Plan: A single-page dashboard with tab-based navigation for the three core themes (User Experience, Performance & Architecture, Data & Reliability). This structure is chosen over a linear document to allow users to non-linearly explore areas of interest, making it more engaging and efficient for different stakeholders (e.g., a product manager might focus on UX, an engineer on Performance). The primary interaction is clicking the theme tabs to filter the content. A secondary interaction will be hovering over info cards for visual feedback. The user flow is a drill-down from a high-level theme to detailed enhancement points, which are presented as visually distinct cards.
+        Visualisation & Content Choices: The key architectural change ("Reduced Database Load") is visualised using an HTML/CSS "before and after" diagram to make the abstract concept tangible and easy to grasp. All other enhancement points are presented in styled info cards with relevant Unicode icons (e.g., 📧, ✔️, 🚀) to provide quick visual context and improve readability. The layout uses a responsive grid to ensure a good experience on all devices. This approach avoids static charts as the source material is qualitative, instead focusing on informational design.
+        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .active-tab {
+            background-color: #3b82f6 !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .info-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .diagram-box {
+            border: 2px solid #9ca3af;
+            background-color: #f9fafb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .diagram-arrow {
+            position: relative;
+            background-color: #6b7280;
+            height: 2px;
+            width: 100%;
+        }
+        .diagram-arrow::after {
+            content: '';
+            position: absolute;
+            right: -1px;
+            top: -4px;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 8px solid #6b7280;
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased">
+
+    <div class="container mx-auto max-w-6xl px-4 py-8 md:py-12">
+
+        <header class="text-center mb-10 md:mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">PBS Live Notification System</h1>
+            <p class="mt-2 text-lg text-gray-600">Interactive Release Notes: Key Enhancements</p>
+        </header>
+
+        <nav class="flex justify-center items-center gap-2 md:gap-4 mb-10 p-2 bg-gray-200 rounded-xl max-w-xl mx-auto">
+            <button id="btn-ux" class="tab-btn w-full md:w-auto flex-1 px-4 py-2.5 text-sm md:text-base font-semibold text-gray-700 bg-white rounded-lg shadow-sm transition-all duration-200">User Experience</button>
+            <button id="btn-perf" class="tab-btn w-full md:w-auto flex-1 px-4 py-2.5 text-sm md:text-base font-semibold text-gray-700 bg-white rounded-lg shadow-sm transition-all duration-200">Performance & Architecture</button>
+            <button id="btn-data" class="tab-btn w-full md:w-auto flex-1 px-4 py-2.5 text-sm md:text-base font-semibold text-gray-700 bg-white rounded-lg shadow-sm transition-all duration-200">Data & Reliability</button>
+        </nav>
+
+        <main>
+            <!-- User Experience Content -->
+            <section id="content-ux" class="content-section">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <div class="info-card bg-white p-6 rounded-xl shadow-md">
+                        <span class="text-3xl mb-3 block" role="img" aria-label="digest icon">🗞️</span>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">Consolidated Notification Digests</h3>
+                        <p class="text-gray-600 text-sm">Users now receive a single, unified email or SMS per notification cycle, combining alerts from multiple sources. This change dramatically reduces notification volume and helps prevent "notification fatigue."</p>
+                    </div>
+                    <div class="info-card bg-white p-6 rounded-xl shadow-md">
+                        <span class="text-3xl mb-3 block" role="img" aria-label="list icon">🗂️</span>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">Categorized Message Content</h3>
+                        <p class="text-gray-600 text-sm">Within the new digests, all items are clearly organized under distinct category headings. This makes the information easier and faster for our users to scan and comprehend.</p>
+                    </div>
+                    <div class="info-card bg-white p-6 rounded-xl shadow-md">
+                        <span class="text-3xl mb-3 block" role="img" aria-label="calendar icon">🗓️</span>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">Flexible Group Scheduling</h3>
+                        <p class="text-gray-600 text-sm">The system supports a powerful scheduling model where a single schedule can trigger related notification scenarios (e.g., all applicant updates), leading to more contextually relevant digests.</p>
+                    </div>
+                    <div class="info-card bg-white p-6 rounded-xl shadow-md">
+                        <span class="text-3xl mb-3 block" role="img" aria-label="toggle icon">🎚️</span>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">Greater Respect for User Choices</h3>
+                        <p class="text-gray-600 text-sm">The system now fully supports and enforces "Don't Email" and "Don't Text" preferences for staff and parents, building user trust by ensuring our communications are seen as valuable, not intrusive.</p>
+                    </div>
+                    <div class="info-card bg-white p-6 rounded-xl shadow-md">
+                        <span class="text-3xl mb-3 block" role="img" aria-label="clock icon">⏱️</span>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">More Timely Information for Users</h3>
+                        <p class="text-gray-600 text-sm">By optimizing the processing time, the system ensures that time-sensitive notifications are aggregated and sent out more quickly, providing more immediate value to our users.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Performance & Architecture Content -->
+            <section id="content-perf" class="content-section">
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <div class="info-card bg-white p-6 rounded-xl shadow-md">
+                        <span class="text-3xl mb-3 block" role="img" aria-label="rocket icon">🚀</span>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">Significant Performance & Scalability Overhaul</h3>
+                        <p class="text-gray-600 text-sm">We have re-engineered the system's core data processing engine to handle a much higher volume of notifications with greater speed. Instead of processing alerts one by one, it now handles them in large, efficient batches.</p>
+                    </div>
+                     <div class="info-card bg-white p-6 rounded-xl shadow-md">
+                        <span class="text-3xl mb-3 block" role="img" aria-label="fast-forward icon">⚡</span>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">Faster Batch Processing</h3>
+                        <p class="text-gray-600 text-sm">As a direct result of the new architecture, the time it takes to process thousands of notifications has been drastically reduced, ensuring more timely and efficient delivery of alerts during peak times.</p>
+                    </div>
+                    <div class="info-card bg-white p-6 rounded-xl shadow-md">
+                        <span class="text-3xl mb-3 block" role="img" aria-label="link icon">🔗</span>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">Modern, Decoupled Architecture</h3>
+                        <p class="text-gray-600 text-sm">The system's main processing phases are now more independent. This decoupling improves system resilience against errors and makes it significantly easier and faster to maintain and upgrade in the future.</p>
+                    </div>
+                    <div class="info-card bg-white p-6 rounded-xl shadow-md">
+                        <span class="text-3xl mb-3 block" role="img" aria-label="blueprint icon">🏗️</span>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">Future-Proof Design</h3>
+                        <p class="text-gray-600 text-sm">The new architecture is designed to be extensible, allowing for the future integration of new technologies (like advanced distributed caching systems) without requiring a major rewrite of the core logic.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-md mt-8 md:mt-10">
+                    <h3 class="font-bold text-xl text-gray-900 mb-4 text-center">Architectural Improvement: Reduced Database Load</h3>
+                    <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">The new data handling strategy significantly decreases database queries. Instead of checking each recipient one-by-one, we now fetch required data in bulk, which dramatically improves speed and stability.</p>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <!-- Before Diagram -->
+                        <div>
+                            <h4 class="font-semibold text-center mb-4 text-red-600">Before: Inefficient Processing</h4>
+                            <div class="flex flex-col items-center gap-4">
+                                <div class="diagram-box w-48">System Service</div>
+                                <div class="flex flex-col items-center -my-2">
+                                    <div class="diagram-arrow w-px h-6 bg-red-400" style="width:2px;"></div>
+                                    <div class="diagram-arrow w-px h-6 bg-red-400" style="width:2px; transform: translateX(10px);"></div>
+                                    <div class="diagram-arrow w-px h-6 bg-red-400" style="width:2px; transform: translateX(-10px);"></div>
+                                    <div class="text-xs text-red-500 font-mono">Many Individual Queries (N+1 Problem)</div>
+                                </div>
+                                <div class="diagram-box w-48">Database</div>
+                            </div>
+                            <p class="text-xs text-center mt-3 text-gray-500">For 1000 recipients, this could mean 1000+ separate database calls, leading to high load and slow performance.</p>
+                        </div>
+                        <!-- After Diagram -->
+                        <div>
+                            <h4 class="font-semibold text-center mb-4 text-green-600">After: Efficient Bulk Processing</h4>
+                            <div class="flex flex-col items-center gap-4">
+                                <div class="diagram-box w-48">System Service</div>
+                                <div class="diagram-arrow w-px h-12 bg-green-500" style="width:2px;"></div>
+                                <div class="diagram-box w-48">In-Memory Cache</div>
+                                <div class="diagram-arrow w-px h-12 bg-green-500" style="width:2px;"></div>
+                                <div class="diagram-box w-48">Database</div>
+                            </div>
+                            <p class="text-xs text-center mt-3 text-gray-500">Only 1 bulk query is needed to populate the cache, which is then accessed instantly in-memory for all 1000 recipients.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data & Reliability Content -->
+            <section id="content-data" class="content-section">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <div class="info-card bg-white p-6 rounded-xl shadow-md">
+                        <span class="text-3xl mb-3 block" role="img" aria-label="snapshot icon">📸</span>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">Enhanced Data Integrity with "Data Snapshots"</h3>
+                        <p class="text-gray-600 text-sm">The system now creates an authoritative snapshot of recipient data for each notification run. This ensures all business rules are evaluated against a consistent and reliable set of data, improving the accuracy of every notification sent.</p>
+                    </div>
+                     <div class="info-card bg-white p-6 rounded-xl shadow-md">
+                        <span class="text-3xl mb-3 block" role="img" aria-label="database icon">🗄️</span>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">Improved Data Accuracy for Contacts</h3>
+                        <p class="text-gray-600 text-sm">We have established a more robust data flow that prioritizes our official SQL views as the primary source for recipient contact information (Email, Phone), enhancing delivery reliability.</p>
+                    </div>
+                    <div class="info-card bg-white p-6 rounded-xl shadow-md">
+                        <span class="text-3xl mb-3 block" role="img" aria-label="check mark icon">✔️</span>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">New Validation Rules for Accuracy</h3>
+                        <p class="text-gray-600 text-sm">Stricter recipient validation checks have been implemented to improve accuracy. <strong class="block mt-2">For example,</strong> the system now verifies that a recipient identified as an 'Applicant' is still marked as active in our authoritative lists before an applicant-specific notification is sent.</p>
+                    </div>
+                    <div class="info-card bg-white p-6 rounded-xl shadow-md">
+                        <span class="text-3xl mb-3 block" role="img" aria-label="shield icon">🛡️</span>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">Increased System Resilience</h3>
+                        <p class="text-gray-600 text-sm">By reducing database dependency during critical rule processing, the system is less susceptible to transient database performance issues, making it more robust and reliable.</p>
+                    </div>
+                     <div class="info-card bg-white p-6 rounded-xl shadow-md">
+                        <span class="text-3xl mb-3 block" role="img" aria-label="path icon">🛤️</span>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">Enhanced End-to-End Traceability</h3>
+                        <p class="text-gray-600 text-sm">With the new data flow, we have maintained and improved our ability to track every individual notification item from its creation to its inclusion in a final digest and its delivery status.</p>
+                    </div>
+                     <div class="info-card bg-white p-6 rounded-xl shadow-md">
+                        <span class="text-3xl mb-3 block" role="img" aria-label="chart icon">📊</span>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">Improved Reporting & Analytics</h3>
+                        <p class="text-gray-600 text-sm">Our internal summary reports have been updated to accurately reflect the new consolidated notification schedules, providing clearer and more meaningful insights into system performance and user engagement.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = [
+                { btnId: 'btn-ux', contentId: 'content-ux' },
+                { btnId: 'btn-perf', contentId: 'content-perf' },
+                { btnId: 'btn-data', contentId: 'content-data' }
+            ];
+
+            const tabButtons = tabs.map(tab => document.getElementById(tab.btnId));
+            const contentSections = tabs.map(tab => document.getElementById(tab.contentId));
+
+            function showContent(selectedTabId) {
+                tabs.forEach(tab => {
+                    const btn = document.getElementById(tab.btnId);
+                    const content = document.getElementById(tab.contentId);
+
+                    if (tab.btnId === selectedTabId) {
+                        btn.classList.add('active-tab');
+                        content.classList.add('active');
+                    } else {
+                        btn.classList.remove('active-tab');
+                        content.classList.remove('active');
+                    }
+                });
+            }
+
+            tabButtons.forEach((button, index) => {
+                button.addEventListener('click', () => {
+                    showContent(tabs[index].btnId);
+                });
+            });
+
+            // Show the first tab by default
+            showContent('btn-ux');
+        });
+    </script>
+
+</body>
+</html>
